@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:practica1/database/database_helper.dart';
-import 'package:practica1/models/tareas_model.dart';
 
 class TaskScreen extends StatefulWidget {
   TaskScreen({Key? key}) : super(key: key);
@@ -31,7 +30,7 @@ class _TaskScreenState extends State<TaskScreen> {
       txtFecha.text = tarea['fecEntrada'];
       txtDesc.text = tarea['dscTarea'];
       idTarea = tarea['idTarea'];
-    }, 'tblTarea').then()
+    }
 
     final txtFechaEnt = TextField(
         controller: txtFecha,
@@ -44,26 +43,36 @@ class _TaskScreenState extends State<TaskScreen> {
 
     final btnGuardar = ElevatedButton(
       onPressed: () {
-        _database!.insertar({
-          'dscTarea': txtDesc.text,
-          'fechaEnt': txtFecha.text,
-        }, 'tblTareas').then((value) {
-          final snackBar =
-              SnackBar(content: Text('Tarea registrada correctamente!'));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        });
-      } else {
-        _database!.actualizar({}, 'tblTareas').then(value){
-          final snackbar = SnackBar(content: Text('Tarea actualizada correctamente'));
-          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+        if (!ban) {
+          _database!.insertar({
+            'dscTarea': txtDesc.text,
+            'fechaEnt': txtFecha.text,
+          }, 'tblTareas').then((value) {
+            final snackBar =
+                SnackBar(content: Text('Tarea registrada correctamente!'));
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          });
+        } else {
+          _database!.actualizar({
+            'idTaerea': idTarea,
+            'dscTarea': txtDesc.text,
+            'fechaEnt': txtFecha.text,
+          }, 'tblTareas').then(
+            (value) {
+              final snackbar =
+                  SnackBar(content: Text('Tarea actualizada correctamente'));
+              ScaffoldMessenger.of(context).showSnackBar(snackbar);
+            },
+          );
         }
+        Navigator.pop(context);
       },
       child: Text('Guardar'),
     );
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Task'),
+        title: ban == false ? Text('Add Task') : Text('Update Task'),
       ),
       body: ListView(
         padding: EdgeInsets.all(MediaQuery.of(context).size.width * .05),
