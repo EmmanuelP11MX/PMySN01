@@ -25,6 +25,7 @@ class DashboardScreen extends StatelessWidget {
                   ? Preferences.user
                   : "emmanuelpr@gmail.com"),
               currentAccountPicture: const CircleAvatar(
+                /*child: Hero(tag: tag, child: child),*/
                 backgroundImage: NetworkImage(
                     'https://i.pinimg.com/736x/ce/9f/5d/ce9f5dcf5e84a012b34b61ec3e4dbdb3.jpg'),
               ),
