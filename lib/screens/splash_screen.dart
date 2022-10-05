@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practica1/screens/dashboard_screen.dart';
-import 'package:practica1/screens/login_screen.dart';
+import 'package:practica1/screens/screens.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'package:practica1/shared/preferences.dart';
 
@@ -10,8 +9,9 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SplashScreenView(
-      navigateRoute:
-          (Preferences.password.isNotEmpty && Preferences.user.isNotEmpty)
+      navigateRoute: Preferences.showOnboardin == true
+          ? const OnboardingScreen()
+          : (Preferences.password.isNotEmpty && Preferences.user.isNotEmpty)
               ? const DashboardScreen()
               : const LoginScreen(),
       duration: 3000,
@@ -19,8 +19,8 @@ class SplashScreen extends StatelessWidget {
       imageSrc: "assets/moon.png",
       text: "MOON",
       textType: TextType.TyperAnimatedText,
-      textStyle: TextStyle(fontSize: 30.0, color: Colors.black),
-      backgroundColor: Colors.white,
+      textStyle: const TextStyle(fontSize: 30.0, color: Colors.black),
+      backgroundColor: Color.fromARGB(255, 223, 223, 223),
     );
   }
 }

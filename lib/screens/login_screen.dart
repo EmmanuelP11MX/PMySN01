@@ -82,10 +82,17 @@ class _LoginFrom extends StatelessWidget {
             style: const TextStyle(color: Colors.black),
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecorations.authInputDecorations(
-                hintText: '',
-                labelText: 'Correo electrónico',
-                prefixIcon: Icons.email),
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Correo electrónico',
+              prefixIcon: Align(
+                widthFactor: 1.0,
+                heightFactor: 1.0,
+                child: Icon(
+                  Icons.person,
+                ),
+              ),
+            ),
             onChanged: (value) => loginForm.email = value,
             validator: (value) {
               String pattern =
@@ -102,10 +109,17 @@ class _LoginFrom extends StatelessWidget {
               autocorrect: false,
               obscureText: true,
               keyboardType: TextInputType.text,
-              decoration: InputDecorations.authInputDecorations(
-                  hintText: '',
-                  labelText: 'Contraseña',
-                  prefixIcon: Icons.lock),
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Password',
+                prefixIcon: Align(
+                  widthFactor: 1.0,
+                  heightFactor: 1.0,
+                  child: Icon(
+                    Icons.person,
+                  ),
+                ),
+              ),
               onChanged: (value) => loginForm.password = value,
               validator: (value) {
                 return (value != null) && (value.length >= 8)
@@ -129,7 +143,7 @@ class _LoginFrom extends StatelessWidget {
                 }
               },
               title: const Text(
-                'Recuérdame',
+                'Recordarme',
                 style: TextStyle(color: Colors.black, fontSize: 15),
               )),
           const SizedBox(
@@ -155,7 +169,7 @@ class _LoginFrom extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
                   child: Text(
-                    loginForm.isLoading ? "Espere..." : 'Iniciar sesión',
+                    loginForm.isLoading ? "Iniciando..." : 'Iniciar sesión',
                     style: const TextStyle(color: Colors.white),
                   ))),
           const SizedBox(

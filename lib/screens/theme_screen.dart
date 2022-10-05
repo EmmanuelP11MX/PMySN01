@@ -11,31 +11,40 @@ class ThemeScreen extends StatelessWidget {
     ThemeProvider tema = Provider.of<ThemeProvider>(context);
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tema de la interfaz'),
+      ),
       body: Center(
-          child: Column(
-        children: [
-          TextButton.icon(
-            onPressed: () {
-              tema.setthemeData(temaDia());
-            },
-            icon: Icon(Icons.brightness_1),
-            label: Text('Tema de Dia'),
-          ),
-          TextButton.icon(
-            onPressed: () {
-              tema.setthemeData(temaNoche());
-            },
-            icon: Icon(Icons.dark_mode),
-            label: Text('Tema de Noche'),
-          ),
-          TextButton.icon(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton.icon(
               onPressed: () {
+                print('claro');
+                tema.setthemeData(temaDia());
+              },
+              icon: Icon(Icons.brightness_1),
+              label: Text('Tema Claro'),
+            ),
+            TextButton.icon(
+              onPressed: () {
+                print('oscuro');
+                tema.setthemeData(temaNoche());
+              },
+              icon: Icon(Icons.dark_mode),
+              label: Text('Tema Oscuro'),
+            ),
+            TextButton.icon(
+              onPressed: () {
+                print('calido');
                 tema.setthemeData(temaCalido());
               },
-              icon: Icon(Icons.hot_tub_sharp),
-              label: Text('Tema Calido'))
-        ],
-      )),
+              icon: Icon(Icons.sunny),
+              label: Text('Tema Calido'),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

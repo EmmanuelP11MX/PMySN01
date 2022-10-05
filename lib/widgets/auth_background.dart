@@ -29,7 +29,7 @@ class _HeaderIcon extends StatelessWidget {
       child: SizedBox(
         width: double.infinity,
         child: Icon(
-          Icons.dark_mode_outlined,
+          Icons.movie,
           color: Colors.white,
           size: 170,
         ),

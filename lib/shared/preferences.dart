@@ -6,6 +6,8 @@ class Preferences {
   static String _user = "";
   static String _password = "";
   static bool _fullUser = false;
+  static bool _showOnboradin = true;
+  static String _theme = "";
 
   static Future init() async {
     _preferences = await SharedPreferences.getInstance();
@@ -44,5 +46,23 @@ class Preferences {
     } else {
       _preferences.setString('_fullUser', 'no');
     }
+  }
+
+  static set showOnboardin(bool show) {
+    _showOnboradin = show;
+    _preferences.setBool('showOnboarding', _showOnboradin);
+  }
+
+  static bool get showOnboardin {
+    return _preferences.getBool('showOnboarding') ?? _showOnboradin;
+  }
+
+  static String get theme {
+    return _preferences.getString('theme') ?? _theme;
+  }
+
+  static set theme(String theme) {
+    _theme = theme;
+    _preferences.setString('theme', _theme);
   }
 }

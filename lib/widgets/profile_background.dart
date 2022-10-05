@@ -18,29 +18,6 @@ class ProfileBackground extends StatelessWidget {
   }
 }
 
-/*class _Background extends StatelessWidget {
-  final boxDecoration = const BoxDecoration(
-      gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          stops: [
-        0.2,
-        0.8
-      ],
-          colors: [
-        // Color.fromARGB(255, 46, 48, 95),
-        Color.fromARGB(255, 67, 67, 67),
-        Color.fromARGB(255, 244, 104, 104),
-      ]));
-  const _Background({Key? key}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: boxDecoration,
-    );
-  }
-}*/
-
 class _PurpuleBox extends StatelessWidget {
   const _PurpuleBox({super.key});
 

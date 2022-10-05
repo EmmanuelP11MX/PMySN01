@@ -45,7 +45,7 @@ class _APP extends StatelessWidget {
         //"/tasklist": (BuildContext context) => const ListTaskScreen(),
         "/theme": (BuildContext context) => const ThemeScreen(),
         "/profile": (BuildContext context) => const ProfileScreen(),
-        //"/onboarding": (BuildContext context) => const OnboardingScreen(),
+        "/onboarding": (BuildContext context) => const OnboardingScreen(),
         //"/movies": (BuildContext context) => const MovieScreen(),
         //"/details": (BuildContext context) => const DetailsScreen(),
       },
