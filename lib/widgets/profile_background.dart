@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-class AuthBackground extends StatelessWidget {
+class ProfileBackground extends StatelessWidget {
   final Widget child;
 
-  const AuthBackground({Key? key, required this.child}) : super(key: key);
+  const ProfileBackground({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,31 +12,34 @@ class AuthBackground extends StatelessWidget {
       width: double.infinity,
       height: double.infinity,
       child: Stack(
-        children: [const _PurpuleBox(), const _HeaderIcon(), child],
+        children: [const _PurpuleBox(), child],
       ),
     );
   }
 }
 
-class _HeaderIcon extends StatelessWidget {
-  const _HeaderIcon({
-    Key? key,
-  }) : super(key: key);
-
+/*class _Background extends StatelessWidget {
+  final boxDecoration = const BoxDecoration(
+      gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [
+        0.2,
+        0.8
+      ],
+          colors: [
+        // Color.fromARGB(255, 46, 48, 95),
+        Color.fromARGB(255, 67, 67, 67),
+        Color.fromARGB(255, 244, 104, 104),
+      ]));
+  const _Background({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: Icon(
-          Icons.dark_mode_outlined,
-          color: Colors.white,
-          size: 170,
-        ),
-      ),
+    return Container(
+      decoration: boxDecoration,
     );
   }
-}
+}*/
 
 class _PurpuleBox extends StatelessWidget {
   const _PurpuleBox({super.key});
@@ -47,7 +50,7 @@ class _PurpuleBox extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height * 0.5,
-      decoration: _purpleBackground(),
+      decoration: _blueBackground(),
       child: Stack(
         children: [
           Positioned(
@@ -85,11 +88,11 @@ class _PurpuleBox extends StatelessWidget {
     );
   }
 
-  BoxDecoration _purpleBackground() {
+  BoxDecoration _blueBackground() {
     return const BoxDecoration(
         gradient: LinearGradient(colors: [
       Color.fromARGB(255, 31, 189, 228),
-      Color.fromARGB(255, 0, 105, 166),
+      Color.fromARGB(255, 34, 12, 132),
     ]));
   }
 }

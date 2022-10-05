@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practica1/screens/dashboard_screen.dart';
-import 'package:practica1/screens/loginp_screen.dart';
+import 'package:practica1/screens/login_screen.dart';
 import 'package:splash_screen_view/SplashScreenView.dart';
 import 'package:practica1/shared/preferences.dart';
 

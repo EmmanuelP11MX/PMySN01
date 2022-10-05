@@ -1,68 +1,118 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:practica1/providers/profile_provider.dart';
 import 'package:practica1/shared/preferences.dart';
+import 'package:provider/provider.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({super.key});
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final profile = Provider.of<ProfileProvider>(context);
+    if (profile.userDAO.email == "") {
+      profile.cargarUser();
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text("DashboardScreen"),
       ),
-      drawer: Drawer(
-        backgroundColor: Color.fromARGB(255, 74, 74, 74),
-        child: ListView(
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: const Text(
-                'Emmanuel Ponce Ramírez',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+      drawer: Theme(
+          data: Theme.of(context).copyWith(
+              canvasColor: Theme.of(context)
+                  .primaryColor //This will change the drawer background to blue.
+              //other styles
+              ),
+          child: Drawer(
+            child: ListView(
+              children: [
+                UserAccountsDrawerHeader(
+                  accountName: Text(
+                    profile.userDAO.fullName != ""
+                        ? profile.userDAO.fullName.toString()
+                        : 'set name',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  accountEmail: Text(profile.userDAO.email.toString()),
+                  currentAccountPicture: Hero(
+                    tag: "hero",
+                    child: CircleAvatar(
+                      backgroundImage: profile.userDAO.image != ""
+                          ? Image.file(
+                              File("${profile.userDAO.image}"),
+                              height: 200,
+                              width: 200,
+                              fit: BoxFit.cover,
+                            ).image
+                          : const NetworkImage(
+                              'https://i.pinimg.com/736x/ce/9f/5d/ce9f5dcf5e84a012b34b61ec3e4dbdb3.jpg'),
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/profile');
+                        },
+                      ),
+                    ),
+                  ),
+                  decoration: const BoxDecoration(
+                      image: DecorationImage(
+                    image: NetworkImage(
+                        'https://i.pinimg.com/originals/57/dd/bb/57ddbb0e894d12a376ae8653edd2092a.png'),
+                    fit: BoxFit.cover,
+                  )),
                 ),
-              ),
-              accountEmail: Text((Preferences.user.isNotEmpty)
-                  ? Preferences.user
-                  : "emmanuelpr@gmail.com"),
-              currentAccountPicture: const CircleAvatar(
-                /*child: Hero(tag: tag, child: child),*/
-                backgroundImage: NetworkImage(
-                    'https://i.pinimg.com/736x/ce/9f/5d/ce9f5dcf5e84a012b34b61ec3e4dbdb3.jpg'),
-              ),
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                image: NetworkImage(
-                    'https://i.pinimg.com/originals/57/dd/bb/57ddbb0e894d12a376ae8653edd2092a.png'),
-                fit: BoxFit.cover,
-              )),
+                ListTile(
+                  leading: const Icon(Icons.document_scanner_sharp,
+                      color: Colors.white),
+                  title: const Text(
+                    'Practica 1',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {},
+                  trailing:
+                      const Icon(Icons.chevron_right, color: Colors.white),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.checklist_rtl_outlined,
+                      color: Colors.white),
+                  title: const Text('Base de datos',
+                      style: TextStyle(color: Colors.white)),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/tasklist');
+                  },
+                  trailing:
+                      const Icon(Icons.chevron_right, color: Colors.white),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.checklist_rtl_outlined,
+                      color: Colors.white),
+                  title: const Text('Temas',
+                      style: TextStyle(color: Colors.white)),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/theme');
+                  },
+                  trailing:
+                      const Icon(Icons.chevron_right, color: Colors.white),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.logout, color: Colors.white),
+                  title: const Text('Cerrar sesion',
+                      style: TextStyle(color: Colors.white)),
+                  onTap: () async {
+                    Preferences.password = "";
+                    Preferences.user = "";
+                    Preferences.userFull = false;
+                    profile.borrarUser();
+                    Navigator.pushReplacementNamed(context, '/login');
+                  },
+                  trailing:
+                      const Icon(Icons.chevron_right, color: Colors.white),
+                )
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.content_paste_go_rounded),
-              title: const Text('Practica 1'),
-              onTap: () {},
-              trailing: const Icon(Icons.chevron_right),
-            ),
-            ListTile(
-              leading: const Icon(Icons.all_inbox_rounded),
-              trailing: Icon(Icons.chevron_right),
-              title: Text('Base de datos'),
-              onTap: () {
-                Navigator.pushNamed(context, '/task');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text('Cerrar sesion'),
-              onTap: () {
-                Preferences.password = "";
-                Preferences.user = "";
-                Navigator.pushReplacementNamed(context, '/login');
-              },
-              trailing: const Icon(Icons.chevron_right),
-            )
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

@@ -1,135 +1,167 @@
 import 'package:flutter/material.dart';
+import 'package:practica1/shared/preferences.dart';
+import 'package:practica1/widgets/widgets.dart';
+import 'package:practica1/providers/login_from_provider.dart';
+import 'package:practica1/ui/input_decorations.dart';
+import 'package:provider/provider.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
-class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController txtConUser = TextEditingController();
-  TextEditingController txtConPwd = TextEditingController();
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final txtUser = TextField(
-      controller: txtConUser,
-      decoration: InputDecoration(
-        hintText: 'Usuario',
-        label: Text('Correo electronico'),
-      ),
-      //onChanged: (value) {},
-    );
-
-    final txtPwd = TextField(
-      controller: txtConPwd,
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: 'Introduce la contraseña',
-        label: Text('contraseña'),
-      ),
-    );
-
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        padding: EdgeInsets.all(MediaQuery.of(context).size.width / 20),
-        height: MediaQuery.of(context)
-            .size
-            .height, //para que se adapte a la panalla del dispositivo
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/p_login.jpeg'),
-            fit: BoxFit
-                .cover, //Evita que la pantalla de fondo se redusca al mostrar el teclado
-          ),
-        ),
-        child: Stack(
-          alignment: Alignment.center,
+      body: AuthBackground(
+          child: SingleChildScrollView(
+        child: Column(
           children: [
-            Positioned(
-              top: MediaQuery.of(context).size.width / 5,
-              child: Image.asset(
-                'assets/moonknight.png',
-                width: MediaQuery.of(context).size.width / 1.5,
-              ),
+            const SizedBox(
+              height: 250,
+            ),
+            CardContainer(
+              child: Column(children: [
+                ChangeNotifierProvider(
+                    create: (_) => LoginFormProvider(),
+                    child: const _LoginFrom()),
+              ]),
+            ),
+            const SizedBox(height: 25),
+            const Text(
+              'O',
+              style: TextStyle(fontSize: 20),
             ),
             Container(
-              padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width / 20,
-                right: MediaQuery.of(context).size.width / 20,
-                bottom: MediaQuery.of(context).size.width / 20,
-              ),
-              color: Colors.grey,
-              child: ListView(
-                shrinkWrap: true,
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
                 children: [
-                  txtUser,
-                  SizedBox(
-                    height: 15,
+                  const SizedBox(height: 25),
+                  SocialLoginButton(
+                    borderRadius: 10,
+                    buttonType: SocialLoginButtonType.facebook,
+                    onPressed: () {},
                   ),
-                  txtPwd,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SocialLoginButton(
+                    borderRadius: 10,
+                    buttonType: SocialLoginButtonType.github,
+                    onPressed: () {},
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  SocialLoginButton(
+                    borderRadius: 10,
+                    buttonType: SocialLoginButtonType.google,
+                    onPressed: () {},
+                  ),
                 ],
-              ),
-            ),
-            Positioned(
-              bottom: MediaQuery.of(context).size.width / 2,
-              right: MediaQuery.of(context).size.width / 20,
-              child: GestureDetector(
-                onTap: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text('Espere...'),
-                      );
-                    },
-                  );
-                  await Future.delayed(const Duration(seconds: 2));
-                  //print('Valor de la caja ${txtConUser.text}'); siempre optendremos un string
-                  Navigator.pushNamed(
-                    context,
-                    '/dash',
-                  );
-                },
-                child: Image.asset('assets/moon01.png',
-                    height: MediaQuery.of(context).size.width / 5),
-              ),
-            ),
-            Positioned(
-              bottom: MediaQuery.of(context).size.width / 50,
-              child: Container(
-                padding: EdgeInsets.symmetric(
-                    horizontal: MediaQuery.of(context).size.width / 20),
-                width: MediaQuery.of(context).size.width / 1.2,
-                child: Column(
-                  children: [
-                    SocialLoginButton(
-                      buttonType: SocialLoginButtonType.facebook,
-                      onPressed: () {},
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SocialLoginButton(
-                      buttonType: SocialLoginButtonType.github,
-                      onPressed: () {},
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SocialLoginButton(
-                      buttonType: SocialLoginButtonType.google,
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
               ),
             )
           ],
         ),
+      )),
+    );
+  }
+}
+
+class _LoginFrom extends StatelessWidget {
+  const _LoginFrom({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final loginForm = Provider.of<LoginFormProvider>(context);
+    return Form(
+      key: loginForm.formkey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      child: Column(
+        children: [
+          TextFormField(
+            style: const TextStyle(color: Colors.black),
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
+            decoration: InputDecorations.authInputDecorations(
+                hintText: '',
+                labelText: 'Correo electrónico',
+                prefixIcon: Icons.email),
+            onChanged: (value) => loginForm.email = value,
+            validator: (value) {
+              String pattern =
+                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+              RegExp regExp = RegExp(pattern);
+              return regExp.hasMatch(value ?? '') ? null : "Error en el correo";
+            },
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          TextFormField(
+              style: const TextStyle(color: Colors.black),
+              autocorrect: false,
+              obscureText: true,
+              keyboardType: TextInputType.text,
+              decoration: InputDecorations.authInputDecorations(
+                  hintText: '',
+                  labelText: 'Contraseña',
+                  prefixIcon: Icons.lock),
+              onChanged: (value) => loginForm.password = value,
+              validator: (value) {
+                return (value != null) && (value.length >= 8)
+                    ? null
+                    : 'Minimo 8 caracteres';
+              }),
+          const SizedBox(
+            height: 30,
+          ),
+          SwitchListTile.adaptive(
+              value: loginForm.recordar,
+              activeColor: Color.fromARGB(255, 0, 132, 240),
+              onChanged: (value) {
+                loginForm.recordar = value;
+                if (value == true) {
+                  Preferences.password = loginForm.password;
+                  Preferences.user = loginForm.email;
+                } else {
+                  Preferences.password = "";
+                  Preferences.user = "";
+                }
+              },
+              title: const Text(
+                'Recuérdame',
+                style: TextStyle(color: Colors.black, fontSize: 15),
+              )),
+          const SizedBox(
+            height: 15,
+          ),
+          MaterialButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              disabledColor: Color.fromARGB(148, 158, 158, 158),
+              elevation: 0,
+              color: Color.fromARGB(255, 0, 131, 197),
+              onPressed: loginForm.isLoading
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      if (!loginForm.isValidForm()) return;
+                      loginForm.isLoading = true;
+                      await Future.delayed(const Duration(seconds: 2));
+                      loginForm.isLoading = false;
+                      Navigator.pushReplacementNamed(context, '/dashboard');
+                    },
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                  child: Text(
+                    loginForm.isLoading ? "Espere..." : 'Iniciar sesión',
+                    style: const TextStyle(color: Colors.white),
+                  ))),
+          const SizedBox(
+            height: 5,
+          ),
+        ],
       ),
     );
   }
