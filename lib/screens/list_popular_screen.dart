@@ -22,13 +22,22 @@ class _ListPopularScreenState extends State<ListPopularScreen> {
         future: popularAPI.getAllPopular(),
         builder: (BuildContext context,
             AsyncSnapshot<List<PopularModel>?> snapshot) {
-          return _ListViewPopular(snapshot.data);
+          if (snapshot.hasData)
+            return _listViewPopular(snapshot.data);
+          else if (snapshot.hasError)
+            return Center(
+              child: Text('Ocurrio un error en la petición'),
+            );
+          else
+            return Center(
+              child: CircularProgressIndicator(),
+            );
         },
       ),
     );
   }
 
-  Widget _ListViewPopular(List<PopularModel>? snapshot) {
+  Widget _listViewPopular(List<PopularModel>? snapshot) {
     return ListView.builder(
       itemBuilder: (context, index) {
         return Text(snapshot![index].title!);

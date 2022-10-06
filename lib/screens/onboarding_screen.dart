@@ -156,7 +156,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ? TextButton(
                 onPressed: () {
                   Preferences.showOnboardin = false;
-                  Navigator.pushNamed(context, '/login');
+                  Navigator.pushNamed(context, '/dashboard');
                 },
                 style: TextButton.styleFrom(
                   primary: Colors.white,

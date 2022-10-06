@@ -31,7 +31,7 @@ class DashboardScreen extends StatelessWidget {
                   accountName: Text(
                     profile.userDAO.fullName != ""
                         ? profile.userDAO.fullName.toString()
-                        : 'set name',
+                        : 'nombre de usuario',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -104,6 +104,7 @@ class DashboardScreen extends StatelessWidget {
                     Preferences.password = "";
                     Preferences.user = "";
                     Preferences.userFull = false;
+                    Preferences.showOnboardin = false;
                     profile.borrarUser();
                     Navigator.pushReplacementNamed(context, '/login');
                   },

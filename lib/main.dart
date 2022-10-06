@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:practica1/providers/provider.dart';
+import 'package:practica1/screens/list_task_screen.dart';
 import 'package:practica1/screens/screens.dart';
 import 'package:practica1/shared/preferences.dart';
 import 'package:provider/provider.dart';
@@ -39,13 +40,15 @@ class _APP extends StatelessWidget {
       home: const SplashScreen(),
       debugShowCheckedModeBanner: false,
       routes: {
-        "/dashboard": (BuildContext context) => const DashboardScreen(),
-        "/login": (BuildContext context) => LoginScreen(),
+        '/dashboard': (BuildContext context) => const DashboardScreen(),
+        '/login': (BuildContext context) => LoginScreen(),
         //"/task": (BuildContext context) => const TaskScreen(),
         //"/tasklist": (BuildContext context) => const ListTaskScreen(),
-        "/theme": (BuildContext context) => const ThemeScreen(),
-        "/profile": (BuildContext context) => const ProfileScreen(),
-        "/onboarding": (BuildContext context) => const OnboardingScreen(),
+        '/theme': (BuildContext context) => const ThemeScreen(),
+        '/list': (BuildContext context) => ListTaskScreen(),
+        '/profile': (BuildContext context) => const ProfileScreen(),
+        '/onboarding': (BuildContext context) => const OnboardingScreen(),
+
         //"/movies": (BuildContext context) => const MovieScreen(),
         //"/details": (BuildContext context) => const DetailsScreen(),
       },

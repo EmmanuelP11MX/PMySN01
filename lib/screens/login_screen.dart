@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:practica1/screens/screens.dart';
 import 'package:practica1/shared/preferences.dart';
 import 'package:practica1/widgets/widgets.dart';
 import 'package:practica1/providers/login_from_provider.dart';
-import 'package:practica1/ui/input_decorations.dart';
+//import 'package:practica1/ui/input_decorations.dart';
 import 'package:provider/provider.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 
@@ -163,7 +164,10 @@ class _LoginFrom extends StatelessWidget {
                       loginForm.isLoading = true;
                       await Future.delayed(const Duration(seconds: 2));
                       loginForm.isLoading = false;
-                      Navigator.pushReplacementNamed(context, '/dashboard');
+                      //Navigator.pushReplacementNamed(context, '/dashboard');
+                      Preferences.showOnboardin == true;
+                      //? const OnboardingScreen():
+                      Navigator.pushReplacementNamed(context, '/onboarding');
                     },
               child: Container(
                   padding:
