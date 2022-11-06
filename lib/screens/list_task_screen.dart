@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 import 'package:practica1/database/database_helper.dart';
 import 'package:practica1/models/tareas_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -35,7 +35,7 @@ class _ListTaskScreenState extends State<ListTaskScreen> {
       ),
       body: FutureBuilder(
         future: _database!.getAllTareas(),
-        builder: (context, AsyncSnapshot<List<TareasDAO>> snapshot) {
+        builder: (context, AsyncSnapshot<List<TaskDAO>> snapshot) {
           if (snapshot.hasData)
             return ListView.builder(
               itemBuilder: (context, index) {
@@ -108,4 +108,4 @@ class _ListTaskScreenState extends State<ListTaskScreen> {
       ),
     );
   }
-}
+}*/

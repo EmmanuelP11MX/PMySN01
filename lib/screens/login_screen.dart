@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:practica1/screens/screens.dart';
 import 'package:practica1/shared/preferences.dart';
@@ -9,6 +10,8 @@ import 'package:social_login_buttons/social_login_buttons.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
+  //final FirebaseAuth _auth = FirebaseAuth.instance();
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +82,38 @@ class _LoginFrom extends StatelessWidget {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
+          MaterialButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              disabledColor: Color.fromARGB(148, 158, 158, 158),
+              elevation: 0,
+              color: Color.fromARGB(255, 0, 131, 197),
+              onPressed: loginForm.isLoading
+                  ? null
+                  : () async {
+                      FocusScope.of(context).unfocus();
+                      if (!loginForm.isValidForm()) return;
+                      loginForm.isLoading = true;
+                      await Future.delayed(const Duration(seconds: 2));
+                      loginForm.isLoading = false;
+                      Preferences.showOnboardin == true;
+                      Navigator.pushReplacementNamed(context, '/signup');
+                    },
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60, vertical: 15),
+                  child: Text(
+                    loginForm.isLoading ? "Sign Up..." : 'Sign Up',
+                    style: const TextStyle(color: Colors.white),
+                  ))),
+          const SizedBox(
+            height: 25,
+          ),
           TextFormField(
             style: const TextStyle(color: Colors.black),
             autocorrect: false,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Correo electrónico',
               prefixIcon: Align(
@@ -110,7 +140,7 @@ class _LoginFrom extends StatelessWidget {
               autocorrect: false,
               obscureText: true,
               keyboardType: TextInputType.text,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Password',
                 prefixIcon: Align(
@@ -166,7 +196,6 @@ class _LoginFrom extends StatelessWidget {
                       loginForm.isLoading = false;
                       //Navigator.pushReplacementNamed(context, '/dashboard');
                       Preferences.showOnboardin == true;
-                      //? const OnboardingScreen():
                       Navigator.pushReplacementNamed(context, '/onboarding');
                     },
               child: Container(

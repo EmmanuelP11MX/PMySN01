@@ -40,7 +40,7 @@ class ProfileProvider extends ChangeNotifier {
 
   cargarUser() async {
     final user = await DBProviderUser.db.getUser();
-    userDAO = user![0];
+    //userDAO = user![0];
     notifyListeners();
   }
 

@@ -5,11 +5,13 @@ import 'package:practica1/models/tareas_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-class DataBaseHelper {
+class DatabaseHelper {
+  static Database? _database;
   static final nombreBD = 'TAREASBD';
   static final versionDB = 1;
+  static final DatabaseHelper db = DatabaseHelper._();
+  DatabaseHelper._();
 
-  static Database? _database;
   Future<Database> get database async {
     if (_database != null) return _database!;
     return _database = await _initDatabase();
@@ -55,9 +57,9 @@ class DataBaseHelper {
     );
   }
 
-  Future<List<TareasDAO>> getAllTareas() async {
+  Future<List<TaskDAO>> getAllTareas() async {
     var conexion = await database;
     var result = await conexion.query('tblTareas');
-    return result.map((mapTarea) => TareasDAO.fromJSON(mapTarea)).toList();
+    return result.map((mapTarea) => TaskDAO.fromJSON(mapTarea)).toList();
   }
 }

@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-//import 'package:practica1/decorations/input_decorations.dart';
-import 'package:practica1/providers/provider.dart';
+import 'package:practica1/providers/providers.dart';
 import 'package:practica1/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';

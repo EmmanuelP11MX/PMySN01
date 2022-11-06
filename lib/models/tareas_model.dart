@@ -1,11 +1,11 @@
-class TareasDAO {
+class TaskDAO {
   int? idTarea;
   String? dscTarea;
   String? fechaEnt;
 
-  TareasDAO({this.idTarea, this.dscTarea, this.fechaEnt});
-  factory TareasDAO.fromJSON(Map<String, dynamic> mapTarea) {
-    return TareasDAO(
+  TaskDAO({this.idTarea, this.dscTarea, this.fechaEnt});
+  factory TaskDAO.fromJSON(Map<String, dynamic> mapTarea) {
+    return TaskDAO(
       idTarea: mapTarea['idTarea'],
       dscTarea: mapTarea['dscTarea'],
       fechaEnt: mapTarea['fechaEnt'],

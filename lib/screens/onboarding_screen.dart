@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:practica1/providers/provider.dart';
+import 'package:practica1/providers/providers.dart';
 import 'package:practica1/settings/styles_settings.dart';
 import 'package:practica1/shared/preferences.dart';
 import 'package:provider/provider.dart';

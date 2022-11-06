@@ -31,7 +31,7 @@ class DashboardScreen extends StatelessWidget {
                   accountName: Text(
                     profile.userDAO.fullName != ""
                         ? profile.userDAO.fullName.toString()
-                        : 'nombre de usuario',
+                        : 'usuario',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -64,7 +64,7 @@ class DashboardScreen extends StatelessWidget {
                   )),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.document_scanner_sharp,
+                  leading: const Icon(Icons.data_object_outlined,
                       color: Colors.white),
                   title: const Text(
                     'Practica 1',
@@ -86,8 +86,30 @@ class DashboardScreen extends StatelessWidget {
                       const Icon(Icons.chevron_right, color: Colors.white),
                 ),
                 ListTile(
-                  leading: const Icon(Icons.checklist_rtl_outlined,
-                      color: Colors.white),
+                  leading: const Icon(Icons.movie_sharp, color: Colors.white),
+                  title: const Text('Popular Movies',
+                      style: TextStyle(color: Colors.white)),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/movies');
+                  },
+                  trailing:
+                      const Icon(Icons.chevron_right, color: Colors.white),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.map_rounded, color: Colors.white),
+                  title: const Text(
+                    'Mapa',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/about');
+                  },
+                  trailing:
+                      const Icon(Icons.chevron_right, color: Colors.white),
+                ),
+                ListTile(
+                  leading:
+                      const Icon(Icons.palette_outlined, color: Colors.white),
                   title: const Text('Temas',
                       style: TextStyle(color: Colors.white)),
                   onTap: () {

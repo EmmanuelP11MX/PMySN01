@@ -1,5 +1,4 @@
 import 'dart:io';
-// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:practica1/models/users_model.dart';
@@ -21,7 +20,6 @@ class DBProviderUser {
   Future<Database> initDB() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     final path = join(documentsDirectory.path, 'User.db');
-    print(path);
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute('''
